@@ -78,7 +78,12 @@ namespace MuVR {
 			foreach (var slot in slots.Keys) 
 				rawSlotData[slot] = new PostProcessData(PostProcessData.ProcessMode.Process);
 		}
-		
+
+		public void OnValidate() {
+			rawSlotData.Clear();
+			Awake();
+		}
+
 		public override PoseRef GetterPoseRef(string slot) => slots[slot];
 		public override PoseRef SetterPoseRef(string slot) => rawSlotData[slot].poseRef;
 		
