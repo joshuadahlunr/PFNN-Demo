@@ -2587,8 +2587,9 @@ MonoBehaviour:
         position: {x: 0, y: 0, z: 0}
         rotation: {x: 0, y: 0, z: 0, w: 1}
   useJobs: 1
-  positionAlpha: 0.95
-  rotationAlpha: 0.95
+  positionAlpha: 0.8
+  rotationAlpha: 0.8
+  timeScale: 60
 --- !u!1 &825483883
 GameObject:
   m_ObjectHideFlags: 0
