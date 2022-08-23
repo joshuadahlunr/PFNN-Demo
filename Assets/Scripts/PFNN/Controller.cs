@@ -177,10 +177,10 @@ namespace PFNN {
 
 			oppositeScaleFactor = 1 / scaleFactor;
 
-			initialWorldPosition = new Vector3(
-				transform.position.x,
-				transform.position.y,
-				transform.position.z);
+			// initialWorldPosition = new Vector3(
+			// 	transform.position.x,
+			// 	transform.position.y,
+			// 	transform.position.z);
 
 			network = new PFNN_CPU();
 			mainCamera = gameObject.transform.GetChild(0);
@@ -318,7 +318,10 @@ namespace PFNN {
 
 		protected void Reset(Vector3 initialPosition, Matrix Y) {
 			var rootPosition = new Vector3(initialPosition.x, GetHeightSample(initialPosition), initialPosition.z);
-			var rootRotation = new Quaternion();
+			var rootRotation = Quaternion.identity;
+			
+			// scale the root position from unity space to the space the PFNN expects
+			rootPosition *= oppositeScaleFactor;
 
 			for (var i = 0; i < jointsNumber; i++) {
 				var oPosition = 8 + trajectoryLength / 2 / 10 * 4 + jointsNumber * 3 * 0;
@@ -563,6 +566,7 @@ namespace PFNN {
 		}
 
 		public void UpdateNetworkInput(ref Matrix X) {
+			// Note: already in PFNN space
 			var rootPosition = new Vector3(
 				points[trajectoryLength / 2].position.x,
 				points[trajectoryLength / 2].height,
@@ -629,6 +633,7 @@ namespace PFNN {
 		}
 
 		public void BuildLocalTransforms(Matrix Y) {
+			// Note: already in PFNN space
 			var rootPosition = new Vector3(
 				points[trajectoryLength / 2].position.x,
 				points[trajectoryLength / 2].height,
